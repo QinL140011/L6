@@ -1,0 +1,16 @@
+<h1>カートに追加</h1>
+
+<hr>
+
+<p>商品: <strong><%= @product.name %></strong>（¥<%= @product.price %>）</p>
+
+<%= form_with url: cartitems_path, method: :post, data: { turbo: false } do |f| %>
+  <%= hidden_field_tag :product_id, @product.id %>
+  <%= hidden_field_tag :from, "cartitems_new" %>
+  <div>数量: <%= number_field_tag :qty, 1, min: 1 %></div>
+  <%= f.submit "カートに追加" %>
+<% end %>
+
+<hr>
+<%= link_to "商品一覧へ", products_path %> |
+<%= link_to "カートを見る", cart_path(current_cart) %>

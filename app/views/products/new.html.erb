@@ -1,0 +1,16 @@
+<h1>商品登録</h1>
+
+<hr>
+
+<% if @error %>
+  <p style="color:red;"><%= @error %></p>
+<% end %>
+
+<%= form_with model: @product, data: { turbo: false } do |f| %>
+  <div>商品名: <%= f.text_field :name %></div>
+  <div>価格: <%= f.number_field :price %></div>
+  <%= f.submit "登録" %>
+<% end %>
+
+<hr>
+<%= link_to "一覧へ戻る", products_path %>

@@ -1,0 +1,31 @@
+<h1>ショッピングカート</h1>
+
+<hr>
+
+<% if @cart_items.empty? %>
+  <p>カートは空です。</p>
+<% else %>
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr><th>商品名</th><th>単価</th><th>数量</th><th>小計</th><th>操作</th></tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td>¥<%= item.product.price %></td>
+          <td><%= item.qty %></td>
+          <td>¥<%= item.product.price * item.qty %></td>
+          <td>
+            <%= link_to "削除", cartitem_path(item, from: "cart"), class: "btn btn-outline-danger btn-sm",
+                data: { turbo_method: :delete, turbo_confirm: "削除？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p class="fs-5"><strong>合計: ¥<%= @total %></strong></p>
+<% end %>
+
+<hr>
+<%= link_to "商品一覧へ", products_path, class: "btn btn-secondary" %>
